@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema Namespace="Invoices" xml:lang="es" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityType Name="Master" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="InvoiceID"/>
+				</Key>
+				<Property Name="InvoiceID" Type="Edm.String" Nullable="false" MaxLength="15" sap:label="Invoice ID"/>
+				<Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Status" sap:updatable="true"/>
+				<Property Name="CreatedAt" Type="Edm.DateTime" Precision="7" sap:label="Creation date & time" sap:creatable="false" sap:updatable="false"/>
+				<Property Name="ChangedAt" Type="Edm.DateTime" Precision="7" ConcurrencyMode="Fixed" sap:label="Last Date Time" sap:creatable="false"
+					sap:updatable="true"/>
+				<Property Name="CurrencyCode" Type="Edm.String" Nullable="false" MaxLength="5" sap:label="Currency Code" sap:semantics="currency-code"/>
+				<Property Name="Price" Type="Edm.Decimal" sap:label="Price Amount" Precision="16" Scale="3" sap:unit="CurrencyCode" sap:label="Preis"/>
+				<NavigationProperty Name="ToDetails" Relationship="Invoices.Assoc_Invoices_Details" FromRole="FromRole_Assoc_Invoices_Details"
+					ToRole="ToRole_Assoc_Invoices_Details"/>
+				<NavigationProperty Name="ToHistory" Relationship="Invoices.Assoc_Invoices_History" FromRole="FromRole_Assoc_Invoices_History"
+					ToRole="ToRole_Assoc_Invoices_History"/>
+				<NavigationProperty Name="ToAncestry" Relationship="Invoices.Assoc_Invoices_Ancestry" FromRole="FromRole_Assoc_Invoices_Ancestry"
+					ToRole="ToRole_Assoc_Invoices_Ancestry"/>
+			</EntityType>
+			<EntityType Name="Detail" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="InvoiceID"/>
+				</Key>
+				<Property Name="InvoiceID" Type="Edm.String" Nullable="false" MaxLength="15" sap:label="Invoice ID"/>
+				<Property Name="position" Type="Edm.String" Nullable="false" MaxLength="5" sap:label="Typcode"/>
+			    <Property Name="data1" Type="Edm.String" MaxLength="50" sap:label="Data1"/>
+			    <Property Name="data2" Type="Edm.String" MaxLength="50" sap:label="Data2"/>
+			    <Property Name="data3" Type="Edm.String" MaxLength="50" sap:label="Data3"/>       
+				<NavigationProperty Name="ToMaster" Relationship="Invoices.Assoc_Invoices_Details" FromRole="ToRole_Assoc_Invoices_Details"
+					ToRole="FromRole_Assoc_Invoices_Details"/>
+			</EntityType>
+			<EntityType Name="History" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="InvoiceID"/>
+					<PropertyRef Name="ChangedAt"/>
+				</Key>
+				<Property Name="InvoiceID" Type="Edm.String" Nullable="false" MaxLength="15" sap:label="Invoice ID"/>
+				<Property Name="ChangedAt" Type="Edm.DateTime" Precision="7" ConcurrencyMode="Fixed" sap:label="Last Date Time"/>
+				<Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Status" sap:updatable="true"/>
+				<NavigationProperty Name="ToMaster" Relationship="Invoices.Assoc_Invoices_History" FromRole="ToRole_Assoc_Invoices_History"
+					ToRole="FromRole_Assoc_Invoices_History"/>
+				<!--<NavigationProperty Name="ToLineItems" Relationship="/IWBEP/GWSAMPLE_BASIC.Assoc_SalesOrder_SalesOrderLineItems"-->
+				<!--	FromRole="FromRole_Assoc_SalesOrder_SalesOrderLineItems" ToRole="ToRole_Assoc_SalesOrder_SalesOrderLineItems"/>-->
+			</EntityType>
+			<EntityType Name="Ancestry" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="InvoiceID"/>
+				</Key>
+				<Property Name="InvoiceID" Type="Edm.String" Nullable="false" MaxLength="15" sap:label="Invoice ID" sap:creatable="false"
+					sap:updatable="false"/>
+				<Property Name="Document" Type="Edm.String" Nullable="false" MaxLength="15" sap:label="Document" sap:creatable="false" sap:updatable="false"/>
+				<Property Name="DocType"  Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Document Type" sap:creatable="false"
+					sap:updatable="false"/>
+				<Property Name="Previous" Type="Edm.String" MaxLength="15" sap:label="Previous Document" sap:creatable="false" sap:updatable="false"/>
+				<Property Name="After"    Type="Edm.String" MaxLength="15" sap:label="After Document" sap:creatable="false" sap:updatable="false"/>
+				<NavigationProperty Name="ToMaster" Relationship="Invoices.assoc_invoices_ancestry"
+					FromRole="ToRole_Assoc_Invoices_Ancestry" ToRole="FromRole_Assoc_Invoices_Ancestry"/>
+=======
+		<Schema Namespace="E_INVOICES" xml:lang="es" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityType Name="Master" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="InvoiceID"/>
+				</Key>
+				<Property Name="InvoiceID" Type="Edm.String" Nullable="false" MaxLength="15" sap:label="Invoice ID"/>
+				<Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Status" sap:updatable="true"/>
+				<Property Name="CreatedAt" Type="Edm.DateTime" Precision="7" sap:label="Creation date & time" sap:creatable="false" sap:updatable="false"/>
+				<Property Name="ChangedAt" Type="Edm.DateTime" Precision="7" ConcurrencyMode="Fixed" sap:label="Last Date Time" sap:creatable="false"
+					sap:updatable="true"/>
+				<Property Name="CurrencyCode" Type="Edm.String" Nullable="false" MaxLength="5" sap:label="Currency Code" sap:semantics="currency-code"/>
+				<Property Name="Price" Type="Edm.Decimal" sap:label="Price Amount" Precision="16" Scale="3" sap:unit="CurrencyCode" sap:label="Preis"/>
+				<NavigationProperty Name="ToDetails" Relationship="Invoices.Assoc_Invoices_Details" FromRole="FromRole_Assoc_Invoices_Details"
+					ToRole="ToRole_Assoc_Invoices_Details"/>
+				<NavigationProperty Name="ToHistory" Relationship="Invoices.Assoc_Invoices_History" FromRole="FromRole_Assoc_Invoices_History"
+					ToRole="ToRole_Assoc_Invoices_History"/>
+				<NavigationProperty Name="ToAncestry" Relationship="Invoices.Assoc_Invoices_Ancestry" FromRole="FromRole_Assoc_Invoices_Ancestry"
+					ToRole="ToRole_Assoc_Invoices_Ancestry"/>
+			</EntityType>
+			<EntityType Name="Detail" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="InvoiceID"/>
+				</Key>
+				<Property Name="InvoiceID" Type="Edm.String" Nullable="false" MaxLength="15" sap:label="Invoice ID"/>
+				<!--<Property Name="TypeCode" Type="Edm.String" Nullable="false" MaxLength="2" sap:label="Typcode"/>-->
+				<!--<Property Name="Category" Type="Edm.String" Nullable="false" MaxLength="40" sap:label="Kategorie"/>-->
+				<!--<Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="255" sap:sortable="false" sap:filterable="false"/>-->
+				<!--<Property Name="NameLanguage" Type="Edm.String" MaxLength="2" sap:label="Idioma" sap:creatable="false" sap:updatable="false"-->
+				<!--	sap:sortable="false" sap:filterable="false"/>-->
+				<!--<Property Name="Description" Type="Edm.String" MaxLength="255" sap:sortable="false" sap:filterable="false"/>-->
+				<!--<Property Name="DescriptionLanguage" Type="Edm.String" MaxLength="2" sap:label="Idioma" sap:creatable="false" sap:updatable="false"-->
+				<!--	sap:sortable="false" sap:filterable="false"/>-->
+				<!--<Property Name="SupplierID" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Geschäftspartner-ID"/>-->
+				<!--<Property Name="SupplierName" Type="Edm.String" MaxLength="80" sap:label="Firma" sap:creatable="false" sap:updatable="false"/>-->
+				<!--<Property Name="TaxTarifCode" Type="Edm.Byte" Nullable="false" sap:label="Steuertarifcode"/>-->
+				<!--<Property Name="MeasureUnit" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Maßeinheit" sap:semantics="unit-of-measure"/>-->
+				<!--<Property Name="WeightMeasure" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="WeightUnit" sap:label="Gewicht"/>-->
+				<!--<Property Name="WeightUnit" Type="Edm.String" MaxLength="3" sap:label="Maßeinheit" sap:semantics="unit-of-measure"/>-->
+				<!--<Property Name="CurrencyCode" Type="Edm.String" Nullable="false" MaxLength="5" sap:label="Währungscode" sap:semantics="currency-code"/>-->
+				<!--<Property Name="Price" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="CurrencyCode" sap:label="Preis"/>-->
+				<!--<Property Name="Width" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="DimUnit" sap:label="Maßangaben"/>-->
+				<!--<Property Name="Depth" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="DimUnit" sap:label="Maßangaben"/>-->
+				<!--<Property Name="Height" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="DimUnit" sap:label="Maßangaben"/>-->
+				<!--<Property Name="DimUnit" Type="Edm.String" MaxLength="3" sap:label="Maßeinheit" sap:semantics="unit-of-measure"/>-->
+				<!--<Property Name="CreatedAt" Type="Edm.DateTime" Precision="7" sap:label="Cronomarcador" sap:creatable="false" sap:updatable="false"/>-->
+				<!--<Property Name="ChangedAt" Type="Edm.DateTime" Precision="7" ConcurrencyMode="Fixed" sap:label="Cronomarcador" sap:creatable="false"-->
+				<!--	sap:updatable="false"/>-->
+				<!--<NavigationProperty Name="ToSalesOrderLineItems" Relationship="/IWBEP/GWSAMPLE_BASIC.Assoc_Product_SalesOrderLineItems"-->
+				<!--	FromRole="FromRole_Assoc_Product_SalesOrderLineItems" ToRole="ToRole_Assoc_Product_SalesOrderLineItems"/>-->
+				<NavigationProperty Name="ToMaster" Relationship="Invoices.Assoc_Invoices_Details" FromRole="ToRole_Assoc_Invoices_Details"
+					ToRole="FromRole_Assoc_Invoices_Details"/>
+			</EntityType>
+			<EntityType Name="History" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="InvoiceID"/>
+					<PropertyRef Name="ChangedAt"/>
+				</Key>
+				<Property Name="InvoiceID" Type="Edm.String" Nullable="false" MaxLength="15" sap:label="Invoice ID"/>
+				<Property Name="ChangedAt" Type="Edm.DateTime" Precision="7" ConcurrencyMode="Fixed" sap:label="Last Date Time"/>
+				<Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Status" sap:updatable="true"/>
+				<NavigationProperty Name="ToMaster" Relationship="Invoices.Assoc_Invoices_History" FromRole="ToRole_Assoc_Invoices_History"
+					ToRole="FromRole_Assoc_Invoices_History"/>
+				<!--<NavigationProperty Name="ToLineItems" Relationship="/IWBEP/GWSAMPLE_BASIC.Assoc_SalesOrder_SalesOrderLineItems"-->
+				<!--	FromRole="FromRole_Assoc_SalesOrder_SalesOrderLineItems" ToRole="ToRole_Assoc_SalesOrder_SalesOrderLineItems"/>-->
+			</EntityType>
+			<EntityType Name="Ancestry" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="InvoiceID"/>
+				</Key>
+				<Property Name="InvoiceID" Type="Edm.String" Nullable="false" MaxLength="15" sap:label="Invoice ID" sap:creatable="false"
+					sap:updatable="false"/>
+				<Property Name="Document" Type="Edm.String" Nullable="false" MaxLength="15" sap:label="Document" sap:creatable="false" sap:updatable="false"/>
+				<Property Name="DocType" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Document Type" sap:creatable="false"
+					sap:updatable="false"/>
+				<Property Name="Previous" Type="Edm.String" MaxLength="255" sap:label="Previous Document" sap:creatable="false" sap:updatable="false"/>
+				<Property Name="After" Type="Edm.String" MaxLength="2" sap:label="After Document" sap:creatable="false" sap:updatable="false"/>
+				<NavigationProperty Name="ToProduct" Relationship="/IWBEP/GWSAMPLE_BASIC.Assoc_Product_SalesOrderLineItems"
+					FromRole="ToRole_Assoc_Product_SalesOrderLineItems" ToRole="FromRole_Assoc_Product_SalesOrderLineItems"/>
+>>>>>>> branch 'master' of https://github.com/emmati1985/E_Invoice.git
+			</EntityType>
+			
+			<Association Name="Assoc_VH_Country_Contacts" sap:content-version="1">
+				<End Type="/IWBEP/GWSAMPLE_BASIC.VH_Country" Multiplicity="1" Role="FromRole_Assoc_VH_Country_Contacts"/>
+				<End Type="/IWBEP/GWSAMPLE_BASIC.Contact" Multiplicity="*" Role="ToRole_Assoc_VH_Country_Contacts"/>
+			</Association>
+			<Association Name="Assoc_VH_Country_BusinessPartners" sap:content-version="1">
+				<End Type="/IWBEP/GWSAMPLE_BASIC.VH_Country" Multiplicity="1" Role="FromRole_Assoc_VH_Country_BusinessPartners"/>
+				<End Type="/IWBEP/GWSAMPLE_BASIC.BusinessPartner" Multiplicity="*" Role="ToRole_Assoc_VH_Country_BusinessPartners"/>
+			</Association>
+			<Association Name="Assoc_VH_UnitQuantity_Products" sap:content-version="1">
+				<End Type="/IWBEP/GWSAMPLE_BASIC.VH_UnitQuantity" Multiplicity="1" Role="FromRole_Assoc_VH_UnitQuantity_Products"/>
+				<End Type="/IWBEP/GWSAMPLE_BASIC.Product" Multiplicity="*" Role="ToRole_Assoc_VH_UnitQuantity_Products"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_Assoc_VH_UnitQuantity_Products">
+						<PropertyRef Name="Msehi"/>
+					</Principal>
+					<Dependent Role="ToRole_Assoc_VH_UnitQuantity_Products">
+						<PropertyRef Name="MeasureUnit"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="Assoc_VH_UnitQuantity_SalesOrderLineItem" sap:content-version="1">
+				<End Type="/IWBEP/GWSAMPLE_BASIC.VH_UnitQuantity" Multiplicity="1" Role="FromRole_Assoc_VH_UnitQuantity_SalesOrderLineItem"/>
+				<End Type="/IWBEP/GWSAMPLE_BASIC.SalesOrderLineItem" Multiplicity="*" Role="ToRole_Assoc_VH_UnitQuantity_SalesOrderLineItem"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_Assoc_VH_UnitQuantity_SalesOrderLineItem">
+						<PropertyRef Name="Msehi"/>
+					</Principal>
+					<Dependent Role="ToRole_Assoc_VH_UnitQuantity_SalesOrderLineItem">
+						<PropertyRef Name="QuantityUnit"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+
+			<EntityContainer Name="/IWBEP/GWSAMPLE_BASIC_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+				<EntitySet Name="BusinessPartnerSet" EntityType="/IWBEP/GWSAMPLE_BASIC.BusinessPartner" sap:content-version="1"/>
+				<EntitySet Name="ProductSet" EntityType="/IWBEP/GWSAMPLE_BASIC.Product" sap:content-version="1"/>
+				<EntitySet Name="SalesOrderSet" EntityType="/IWBEP/GWSAMPLE_BASIC.SalesOrder" sap:updatable="false" sap:content-version="1"/>
+				<EntitySet Name="SalesOrderLineItemSet" EntityType="/IWBEP/GWSAMPLE_BASIC.SalesOrderLineItem" sap:content-version="1"/>
+				<EntitySet Name="ContactSet" EntityType="/IWBEP/GWSAMPLE_BASIC.Contact" sap:content-version="1"/>
+				<EntitySet Name="VH_SexSet" EntityType="/IWBEP/GWSAMPLE_BASIC.VH_Sex" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+					sap:pageable="false" sap:content-version="1"/>
+				<EntitySet Name="VH_CountrySet" EntityType="/IWBEP/GWSAMPLE_BASIC.VH_Country" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+				<EntitySet Name="VH_AddressTypeSet" EntityType="/IWBEP/GWSAMPLE_BASIC.VH_AddressType" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+				<EntitySet Name="VH_CategorySet" EntityType="/IWBEP/GWSAMPLE_BASIC.VH_Category" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+				<EntitySet Name="VH_CurrencySet" EntityType="/IWBEP/GWSAMPLE_BASIC.VH_Currency" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+				<EntitySet Name="VH_UnitQuantitySet" EntityType="/IWBEP/GWSAMPLE_BASIC.VH_UnitQuantity" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+				<EntitySet Name="VH_UnitWeightSet" EntityType="/IWBEP/GWSAMPLE_BASIC.VH_UnitWeight" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+				<EntitySet Name="VH_UnitLengthSet" EntityType="/IWBEP/GWSAMPLE_BASIC.VH_UnitLength" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+				<EntitySet Name="VH_ProductTypeCodeSet" EntityType="/IWBEP/GWSAMPLE_BASIC.VH_ProductTypeCode" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+				<EntitySet Name="VH_BPRoleSet" EntityType="/IWBEP/GWSAMPLE_BASIC.VH_BPRole" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+				<EntitySet Name="VH_LanguageSet" EntityType="/IWBEP/GWSAMPLE_BASIC.VH_Language" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+				<AssociationSet Name="Assoc_VH_Language_Contacts_AssocSet" Association="/IWBEP/GWSAMPLE_BASIC.Assoc_VH_Language_Contacts"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="VH_LanguageSet" Role="FromRole_Assoc_VH_Language_Contacts"/>
+					<End EntitySet="ContactSet" Role="ToRole_Assoc_VH_Language_Contacts"/>
+				</AssociationSet>
+				<AssociationSet Name="Assoc_VH_Category_Products_AssocSet" Association="/IWBEP/GWSAMPLE_BASIC.Assoc_VH_Category_Products"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="VH_CategorySet" Role="FromRole_Assoc_VH_Category_Products"/>
+					<End EntitySet="ProductSet" Role="ToRole_Assoc_VH_Category_Products"/>
+				</AssociationSet>
+				<AssociationSet Name="Assoc_VH_ProductTypeCode_Products_AssocS" Association="/IWBEP/GWSAMPLE_BASIC.Assoc_VH_ProductTypeCode_Products"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="VH_ProductTypeCodeSet" Role="FromRole_Assoc_VH_ProductTypeCode_Products"/>
+					<End EntitySet="ProductSet" Role="ToRole_Assoc_VH_ProductTypeCode_Products"/>
+				</AssociationSet>
+				<AssociationSet Name="Assoc_VH_UnitQuantity_Products_AssocSet" Association="/IWBEP/GWSAMPLE_BASIC.Assoc_VH_UnitQuantity_Products"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="VH_UnitQuantitySet" Role="FromRole_Assoc_VH_UnitQuantity_Products"/>
+					<End EntitySet="ProductSet" Role="ToRole_Assoc_VH_UnitQuantity_Products"/>
+				</AssociationSet>
+				<AssociationSet Name="Assoc_VH_Currency_Products_AssocSet" Association="/IWBEP/GWSAMPLE_BASIC.Assoc_VH_Currency_Products"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="VH_CurrencySet" Role="FromRole_Assoc_VH_Currency_Products"/>
+					<End EntitySet="ProductSet" Role="ToRole_Assoc_VH_Currency_Products"/>
+				</AssociationSet>
+				<AssociationSet Name="Assoc_VH_Country_Contacts_AssocSet" Association="/IWBEP/GWSAMPLE_BASIC.Assoc_VH_Country_Contacts"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="VH_CountrySet" Role="FromRole_Assoc_VH_Country_Contacts"/>
+					<End EntitySet="ContactSet" Role="ToRole_Assoc_VH_Country_Contacts"/>
+				</AssociationSet>
+				<AssociationSet Name="Assoc_VH_BPRole_BusinessPartners_AssocSe" Association="/IWBEP/GWSAMPLE_BASIC.Assoc_VH_BPRole_BusinessPartners"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="VH_BPRoleSet" Role="FromRole_Assoc_VH_BPRole_BusinessPartners"/>
+					<End EntitySet="BusinessPartnerSet" Role="ToRole_Assoc_VH_BPRole_BusinessPartners"/>
+				</AssociationSet>
+				<AssociationSet Name="Assoc_VH_Sex_Contacts_AssocSet" Association="/IWBEP/GWSAMPLE_BASIC.Assoc_VH_Sex_Contacts" sap:creatable="false"
+					sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="VH_SexSet" Role="FromRole_Assoc_VH_Sex_Contacts"/>
+					<End EntitySet="ContactSet" Role="ToRole_Assoc_VH_Sex_Contacts"/>
+				</AssociationSet>
+				<AssociationSet Name="Assoc_Product_SalesOrderLineItems_AssocS" Association="/IWBEP/GWSAMPLE_BASIC.Assoc_Product_SalesOrderLineItems"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="ProductSet" Role="FromRole_Assoc_Product_SalesOrderLineItems"/>
+					<End EntitySet="SalesOrderLineItemSet" Role="ToRole_Assoc_Product_SalesOrderLineItems"/>
+				</AssociationSet>
+				<AssociationSet Name="Assoc_VH_Currency_BusinessPartners_Assoc" Association="/IWBEP/GWSAMPLE_BASIC.Assoc_VH_Currency_BusinessPartners"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="VH_CurrencySet" Role="FromRole_Assoc_VH_Currency_BusinessPartners"/>
+					<End EntitySet="BusinessPartnerSet" Role="ToRole_Assoc_VH_Currency_BusinessPartners"/>
+				</AssociationSet>
+				<AssociationSet Name="Assoc_BusinessPartner_Products_AssocSet" Association="/IWBEP/GWSAMPLE_BASIC.Assoc_BusinessPartner_Products"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="BusinessPartnerSet" Role="FromRole_Assoc_BusinessPartner_Products"/>
+					<End EntitySet="ProductSet" Role="ToRole_Assoc_BusinessPartner_Products"/>
+				</AssociationSet>
+				<AssociationSet Name="Assoc_VH_UnitWeight_Products_AssocSet" Association="/IWBEP/GWSAMPLE_BASIC.Assoc_VH_UnitWeight_Products"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="VH_UnitWeightSet" Role="FromRole_Assoc_VH_UnitWeight_Products"/>
+					<End EntitySet="ProductSet" Role="ToRole_Assoc_VH_UnitWeight_Products"/>
+				</AssociationSet>
+				<AssociationSet Name="Assoc_VH_Country_BusinessPartners_AssocS" Association="/IWBEP/GWSAMPLE_BASIC.Assoc_VH_Country_BusinessPartners"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="VH_CountrySet" Role="FromRole_Assoc_VH_Country_BusinessPartners"/>
+					<End EntitySet="BusinessPartnerSet" Role="ToRole_Assoc_VH_Country_BusinessPartners"/>
+				</AssociationSet>
+				<!--<AssociationSet Name="Assoc_VH_UnitLength_Products_AssocSet" Association="/IWBEP/GWSAMPLE_BASIC.Assoc_VH_UnitLength_Products"-->
+				<!--	sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">-->
+				<!--	<End EntitySet="VH_UnitLengthSet" Role="FromRole_Assoc_VH_UnitLength_Products"/>-->
+				<!--	<End EntitySet="ProductSet" Role="ToRole_Assoc_VH_UnitLength_Products"/>-->
+				<!--</AssociationSet>-->
+				<AssociationSet Name="Assoc_VH_Currency_SalesOrders_AssocSet" Association="/IWBEP/GWSAMPLE_BASIC.Assoc_VH_Currency_SalesOrders"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="VH_CurrencySet" Role="FromRole_Assoc_VH_Currency_SalesOrders"/>
+					<End EntitySet="SalesOrderSet" Role="ToRole_Assoc_VH_Currency_SalesOrders"/>
+				</AssociationSet>
+				<AssociationSet Name="Assoc_SalesOrder_SalesOrderLineItems_Ass" Association="/IWBEP/GWSAMPLE_BASIC.Assoc_SalesOrder_SalesOrderLineItems"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="SalesOrderSet" Role="FromRole_Assoc_SalesOrder_SalesOrderLineItems"/>
+					<End EntitySet="SalesOrderLineItemSet" Role="ToRole_Assoc_SalesOrder_SalesOrderLineItems"/>
+				</AssociationSet>
+				<AssociationSet Name="Assoc_BusinessPartner_SalesOrders_AssocS" Association="/IWBEP/GWSAMPLE_BASIC.Assoc_BusinessPartner_SalesOrders"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="BusinessPartnerSet" Role="FromRole_Assoc_BusinessPartner_SalesOrders"/>
+					<End EntitySet="SalesOrderSet" Role="ToRole_Assoc_BusinessPartner_SalesOrders"/>
+				</AssociationSet>
+				<AssociationSet Name="Assoc_VH_Currency_SalesOrderLineItems_As" Association="/IWBEP/GWSAMPLE_BASIC.Assoc_VH_Currency_SalesOrderLineItems"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="VH_CurrencySet" Role="FromRole_Assoc_VH_Currency_SalesOrderLineItems"/>
+					<End EntitySet="SalesOrderLineItemSet" Role="ToRole_Assoc_VH_Currency_SalesOrderLineItems"/>
+				</AssociationSet>
+				<AssociationSet Name="Assoc_BusinessPartner_Contacts_AssocSet" Association="/IWBEP/GWSAMPLE_BASIC.Assoc_BusinessPartner_Contacts"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="BusinessPartnerSet" Role="FromRole_Assoc_BusinessPartner_Contacts"/>
+					<End EntitySet="ContactSet" Role="ToRole_Assoc_BusinessPartner_Contacts"/>
+				</AssociationSet>
+				<AssociationSet Name="Assoc_VH_UnitQuantity_SalesOrderLineItem" Association="/IWBEP/GWSAMPLE_BASIC.Assoc_VH_UnitQuantity_SalesOrderLineItem"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="VH_UnitQuantitySet" Role="FromRole_Assoc_VH_UnitQuantity_SalesOrderLineItem"/>
+					<End EntitySet="SalesOrderLineItemSet" Role="ToRole_Assoc_VH_UnitQuantity_SalesOrderLineItem"/>
+				</AssociationSet>
+				<FunctionImport Name="RegenerateAllData" ReturnType="/IWBEP/GWSAMPLE_BASIC.CT_String" m:HttpMethod="POST">
+					<Parameter Name="NoOfSalesOrders" Type="Edm.Int32" Mode="In"/>
+				</FunctionImport>
+				<FunctionImport Name="SalesOrder_Confirm" ReturnType="/IWBEP/GWSAMPLE_BASIC.SalesOrder" EntitySet="SalesOrderSet" m:HttpMethod="POST"
+					sap:action-for="/IWBEP/GWSAMPLE_BASIC.SalesOrder">
+					<Parameter Name="SalesOrderID" Type="Edm.String" Mode="In" MaxLength="10"/>
+				</FunctionImport>
+				<FunctionImport Name="SalesOrder_Cancel" ReturnType="/IWBEP/GWSAMPLE_BASIC.SalesOrder" EntitySet="SalesOrderSet" m:HttpMethod="POST"
+					sap:action-for="/IWBEP/GWSAMPLE_BASIC.SalesOrder">
+					<Parameter Name="SalesOrderID" Type="Edm.String" Mode="In" MaxLength="10"/>
+				</FunctionImport>
+				<FunctionImport Name="SalesOrder_InvoiceCreated" ReturnType="/IWBEP/GWSAMPLE_BASIC.SalesOrder" EntitySet="SalesOrderSet" m:HttpMethod="POST"
+					sap:action-for="/IWBEP/GWSAMPLE_BASIC.SalesOrder">
+					<Parameter Name="SalesOrderID" Type="Edm.String" Mode="In" MaxLength="10"/>
+				</FunctionImport>
+				<FunctionImport Name="SalesOrder_GoodsIssueCreated" ReturnType="/IWBEP/GWSAMPLE_BASIC.SalesOrder" EntitySet="SalesOrderSet"
+					m:HttpMethod="POST" sap:action-for="/IWBEP/GWSAMPLE_BASIC.SalesOrder">
+					<Parameter Name="SalesOrderID" Type="Edm.String" Mode="In" MaxLength="10"/>
+				</FunctionImport>
+			</EntityContainer>
+			<atom:link rel="self" href="https://SAPES4.SAPDEVCENTER.COM:443/sap/opu/odata/iwbep/GWSAMPLE_BASIC/$metadata"
+				xmlns:atom="http://www.w3.org/2005/Atom"/>
+			<atom:link rel="latest-version" href="https://SAPES4.SAPDEVCENTER.COM:443/sap/opu/odata/iwbep/GWSAMPLE_BASIC/$metadata"
+				xmlns:atom="http://www.w3.org/2005/Atom"/>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

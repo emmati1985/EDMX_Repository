@@ -1,0 +1,64 @@
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+
+	<edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="DockReservation">
+			<EntityType Name="DockAssignation">
+				<Key>
+					<PropertyRef Name="plant"/>
+					<PropertyRef Name="dock"/>
+					<PropertyRef Name="date"/>
+				</Key>
+				<Property Name="plant" Type="Edm.String" Nullable="false" sap:label="Plant" MaxLength="5"></Property>
+				<Property Name="dock"  Type="Edm.String" Nullable="false" sap:label="Dock" MaxLength="5"></Property>
+				<Property Name="date" Type="Edm.DateTime" Precision="7" Nullable="false" sap:label="Cronomarcador"></Property>
+				<Property Name="h1" Type="Edm.String" sap:label="Hour1" MaxLength="1"></Property>
+				<Property Name="h2" Type="Edm.String" sap:label="Hour2" MaxLength="1"></Property>
+				<Property Name="h3" Type="Edm.String" sap:label="Hour3" MaxLength="1"></Property>
+				<Property Name="h4" Type="Edm.String" sap:label="Hour4" MaxLength="1"></Property>
+				<Property Name="h5" Type="Edm.String" sap:label="Hour5" MaxLength="1"></Property>
+				<Property Name="h6" Type="Edm.String" sap:label="Hour6" MaxLength="1"></Property>
+				<Property Name="h7" Type="Edm.String" sap:label="Hour7" MaxLength="1"></Property>
+				<Property Name="h8" Type="Edm.String" sap:label="Hour8" MaxLength="1"></Property>
+				<NavigationProperty Name="DockToOrders" Relationship="DockReservation.Docks_Orders" ToRole="orders" FromRole="docks"/>
+			</EntityType>
+			<EntityType Name="Orders">
+				<Key>
+					<PropertyRef Name="orderKey"/>
+				</Key>
+				<Property Name="orderKey" Type="Edm.String" Nullable="false" sap:label="Key" MaxLength="10"></Property>
+				<Property Name="plant" Type="Edm.String" Nullable="false" sap:label="Plant"></Property>
+				<Property Name="dock"  Type="Edm.String" Nullable="false" sap:label="Dock"></Property>
+				<Property Name="date" Type="Edm.DateTime" Precision="7" Nullable="false" sap:label="Cronomarcador"></Property>
+				<Property Name="startTime" Type="Edm.Time" Nullable="false" sap:label="Start Time" MaxLength="8"></Property>
+				<Property Name="endTime" Type="Edm.Time" Nullable="false" sap:label="End Time" MaxLength="8"></Property>
+				<Property Name="note" Type="Edm.Int16" sap:label="Room" MaxLength="355"></Property>
+				<NavigationProperty Name="DockToOrders" Relationship="DockReservation.Docks_Orders" ToRole="docks" FromRole="orders"/>
+			</EntityType>
+			<Association Name="Docks_Orders">
+				<End Type="DockReservation.DockAssignation" Role="docks" Multiplicity="1"></End>
+				<End Type="DockReservation.Orders" Role="orders" Multiplicity="*"></End>
+				<ReferentialConstraint>
+					<Principal Role="docks">
+						<PropertyRef Name="plant"/>
+						<PropertyRef Name="dock"/>
+						<PropertyRef Name="date"/>
+					</Principal>
+					<Dependent Role="orders">
+						<PropertyRef Name="plant"/>
+						<PropertyRef Name="dock"/>
+						<PropertyRef Name="date"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			
+			<EntityContainer Name="DemoService" m:IsDefaultEntityContainer="true">
+				<EntitySet Name="DockAssignation" EntityType="DockReservation.DockAssignation"/>
+				<EntitySet Name="Orders" EntityType="DockReservation.Orders"/>
+				<AssociationSet Name="DockOrders" Association="DockReservation.Docks_Orders">
+					<End Role="docks" EntitySet="DockAssignation"></End>
+					<End Role="orders" EntitySet="Orders"></End>
+				</AssociationSet>
+			</EntityContainer>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>
