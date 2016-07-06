@@ -18,6 +18,8 @@
 				<Property Name="h6" Type="Edm.Boolean" Nullable="true" sap:label="H6"></Property>
 				<Property Name="h7" Type="Edm.Boolean" Nullable="true" sap:label="H7"></Property>
 				<Property Name="h8" Type="Edm.Boolean" Nullable="true" sap:label="H8"></Property>
+				<NavigationProperty Name="orders" Relationship="DockReservation.assignation_orders" ToRole="orders" FromRole="assignation"></NavigationProperty>
+				<NavigationProperty Name="plants" Relationship="DockReservation.plants_assignation" ToRole="plants" FromRole="assignation"></NavigationProperty>
 			</EntityType>
 			
 			<EntityType Name="orders">
@@ -32,6 +34,7 @@
 				<Property Name="StartTime" Type="Edm.Time" Nullable="false" sap:label="Start Time" MaxLength="8"></Property>
 				<Property Name="EndTime" Type="Edm.Time" Nullable="false" sap:label="End Time" MaxLength="8"></Property>
 				<Property Name="Note" Type="Edm.String" Nullable="true" sap:label="Note"></Property>
+				<NavigationProperty Name="assignation" Relationship="DockReservation.assignation_orders" ToRole="assignation" FromRole="orders"></NavigationProperty>
 			</EntityType>
 			
 			<EntityType Name="plants">
@@ -40,6 +43,7 @@
 				</Key>
 				<Property Name="Plant" Type="Edm.String" Nullable="false" sap:label="Plant Id"></Property>
 				<Property Name="Description" Type="Edm.String" Nullable="true" sap:label="Description"></Property>
+				<NavigationProperty Name="assignation" Relationship="DockReservation.plants_assignation" ToRole="assignation" FromRole="plants"></NavigationProperty>
 			</EntityType>
 			
 			<Association Name="assignation_orders">
